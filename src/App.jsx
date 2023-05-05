@@ -1,49 +1,44 @@
-import React from "react";
-import { useTranslation, Trans } from "react-i18next";
-import "./localisation/i18n";
-import DropdownComponent from "./localisation/lngSelector";
-import uzFlag from "./images/uz.svg";
+import React, { Component } from "react";
+import { T, LanguageList, Config } from "react-translator-component";
+import ru from "./locale/ru.json";
+import uz from "./locale/uz.json";
+import en from "./locale/en.json";
+
 import ruFlag from "./images/ru.svg";
+import uzFlag from "./images/uz.svg";
 import enFlag from "./images/en.svg";
 
-export default function App() {
-  const { t, i18n } = useTranslation();
+Config.default = "en";
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+Config.list = {
+  en: {
+    text: "en",
+    icon: enFlag,
+    file: en,
+  },
+  ru: {
+    text: "ru",
+    icon: ruFlag,
+    file: ru,
+  },
+  uz: {
+    text: "uz",
+    icon: uzFlag,
+    file: uz,
+  },
+};
 
+function App() {
   return (
-    <div className="App">
-      <div className="flex flex-col justify-center items-center text-black">
-        <h2>{t("Nima Gap")}</h2>
-        <div className="flex flex-row gap-2 mt-7">
-          <button
-            className="text-black bg-red-500 px-4 py-1 rounded-lg flex flex-row justify-center items-center gap-2"
-            onClick={() => changeLanguage("uz")}>
-            <img src={uzFlag} alt="Flag of Uzb" />
-            uz
-          </button>
-          <button
-            className="text-red-500 bg-black px-4 py-1 rounded-lg flex flex-row justify-center items-center gap-2"
-            onClick={() => changeLanguage("en")}>
-            <img src={enFlag} alt="Flag of Russia" />
-            en
-          </button>
-          <button
-            className="bg-black text-red-500 px-4 py-1 rounded-lg flex flex-row justify-center items-center gap-2"
-            onClick={() => changeLanguage("ru")}>
-            <img src={ruFlag} alt="Flag of Russia" />
-            ru
-          </button>
+    <div>
+      <div className="text-red-300 container">
+        <div>
+          <h6 className="container">{T("Salom")}</h6>
         </div>
-      </div>
-      <div style={{ color: "red", marginTop: 30, textAlign: "center" }}>
-        <Trans i18nKey="Salom">trans</Trans>
-      </div>
-      <div className="flex justify-center mt-10">
-        <DropdownComponent />
+        <LanguageList Theme="Dropdown" />
       </div>
     </div>
   );
 }
+
+export default App;
